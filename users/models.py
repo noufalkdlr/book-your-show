@@ -8,9 +8,9 @@ class User(AbstractUser):
     CUSTOMER = "customer"
 
     ROLE_CHOICES = [
-        ("ADMIN", "Platform Admin"),
-        ("THEATRE_OWNER", "Theatre Owner"),
-        ("CUSTOMER", "Customer"),
+        (ADMIN, "Platform Admin"),
+        (THEATRE_OWNER, "Theatre Owner"),
+        (CUSTOMER, "Customer"),
     ]
 
     email = models.EmailField(unique=True)
