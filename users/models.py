@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     ADMIN = "admin"
-    THEATRE_OWNER = "owner"
+    THEATRE_OWNER = "theatre_owner"
     CUSTOMER = "customer"
 
     ROLE_CHOICES = [
@@ -36,7 +36,7 @@ class CustomerProfile(models.Model):
 
 class TheatreOwnerProfile(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="owner_profile"
+        User, on_delete=models.CASCADE, related_name="theatre_owner_profile"
     )
     gst_number = models.CharField(max_length=20, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
