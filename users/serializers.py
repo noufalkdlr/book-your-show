@@ -24,7 +24,7 @@ class TheatreOwnerSignUpSerializer(serializers.ModelSerializer):
 
 
 class CustomerSignUpSerializer(serializers.ModelSerializer):
-    user = CustomerProfile()
+    user = UserSerializer()
 
     class Meta:
         model = CustomerProfile
