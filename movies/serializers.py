@@ -56,3 +56,22 @@ class MovieListSerializer(serializers.ModelSerializer):
             "trailer_url",
             "release_date",
         ]
+
+
+class MovieCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Movie
+        fields = [
+            "id",
+            "title",
+            "slug",
+            "description",
+            "directors",
+            "cast",
+            "genres",
+            "languages",
+            "duration",
+            "poster",
+            "trailer_url",
+            "release_date",
+        ]

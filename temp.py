@@ -1,5 +1,3 @@
-import random
+a = [b for b in range(10)]
 
-count = random.randint(1, 100)
-
-print(count)
+print(a)
