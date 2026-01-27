@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 class Language(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -23,7 +23,7 @@ class Language(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -42,7 +42,7 @@ class Genre(models.Model):
 
 class Director(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, db_index=True)
     photo = models.ImageField(upload_to="directors/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -62,15 +62,15 @@ class Director(models.Model):
 
 class Actor(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, db_index=True)
     photo = models.ImageField(upload_to="actors/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        while not self.slug:
+        if not self.slug:
             base_slug = slugify(self.name)
             slug = base_slug
             count = 1
-            if Actor.objects.filter(slug=slug).exists():
+            while Actor.objects.filter(slug=slug).exists():
                 slug = f"{base_slug}-{count}"
                 count += 1
             self.slug = slug
@@ -115,7 +115,7 @@ class MovieCast(models.Model):
         Movie, on_delete=models.CASCADE, related_name="movie_roles"
     )
     actor = models.ForeignKey(
-        Actor, on_delete=models.CASCADE, related_name="movie_roles"
+        Actor, on_delete=models.CASCADE, related_name="actor_roles"
     )
     role_name = models.CharField(max_length=100)
 
