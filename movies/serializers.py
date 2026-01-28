@@ -17,7 +17,7 @@ class DirectorSerializer(serializers.ModelSerializer):
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Actor
-        fields = ["id", "name", "photo"]
+        fields = ["id", "name", "slug", "photo"]
 
 
 class MovieCastSerializer(serializers.ModelSerializer):
