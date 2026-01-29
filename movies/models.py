@@ -117,7 +117,20 @@ class MovieCast(models.Model):
     actor = models.ForeignKey(
         Actor, on_delete=models.CASCADE, related_name="actor_roles"
     )
+    slug = models.SlugField(blank=True, unique=True, db_index=True)
     role_name = models.CharField(max_length=100)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.role_name)
+            slug = base_slug
+            count = 1
+            while MovieCast.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{count}"
+                count += 1
+            self.slug = slug
+
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.actor} as {self.role_name} in {self.movie}"

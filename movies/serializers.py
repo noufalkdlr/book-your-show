@@ -18,6 +18,7 @@ class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Actor
         fields = ["id", "name", "slug", "photo"]
+        read_only_fields = ["slug"]
 
 
 class MovieCastSerializer(serializers.ModelSerializer):
@@ -25,7 +26,14 @@ class MovieCastSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.MovieCast
-        fields = ["id", "actor", "role_name"]
+        fields = ["id", "slug", "actor", "role_name"]
+
+
+class MovieCastCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MovieCast
+        fields = ["id", "movie", "actor", "slug", "role_name"]
+        read_only_fields = ["movie", "slug"]
 
 
 class LanguageSerializer(serializers.ModelSerializer):
