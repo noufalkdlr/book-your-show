@@ -80,7 +80,6 @@ class MovieCreateUpdateSerializer(serializers.ModelSerializer):
             "slug",
             "description",
             "directors",
-            "cast",
             "genres",
             "languages",
             "duration",
