@@ -121,15 +121,7 @@ class MovieCast(models.Model):
     role_name = models.CharField(max_length=100)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.role_name)
-            slug = base_slug
-            count = 1
-            while MovieCast.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{count}"
-                count += 1
-            self.slug = slug
-
+        self.slug = slugify(f"{self.movie.title}-{self.role_name}")
         return super().save(*args, **kwargs)
 
     def __str__(self):

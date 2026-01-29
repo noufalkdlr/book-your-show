@@ -10,6 +10,17 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
 
+class AdminSignUpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "email", "username", "password"]
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data, role=User.ADMIN)
+        return user
+
+
 class TheatreOwnerSignUpSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
