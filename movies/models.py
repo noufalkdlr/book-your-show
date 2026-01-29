@@ -117,7 +117,7 @@ class MovieCast(models.Model):
     actor = models.ForeignKey(
         Actor, on_delete=models.CASCADE, related_name="actor_roles"
     )
-    slug = models.SlugField(blank=True, unique=True, db_index=True)
+    slug = models.SlugField(blank=True, db_index=True)
     role_name = models.CharField(max_length=100)
 
     def save(self, *args, **kwargs):

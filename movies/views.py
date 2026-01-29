@@ -29,6 +29,7 @@ class MovieViewSet(viewsets.ModelViewSet):
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAdminRole]
+
         return [permission() for permission in permission_classes]
 
 
@@ -43,7 +44,7 @@ class ActorViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAdminRole]
 
-        return [permissions() for permissions in permission_classes]
+        return [permission() for permission in permission_classes]
 
 
 class GenreViewSet(viewsets.ModelViewSet):
@@ -57,7 +58,7 @@ class GenreViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAdminRole]
 
-        return [permissions() for permissions in permission_classes]
+        return [permission() for permission in permission_classes]
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
@@ -71,7 +72,7 @@ class LanguageViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAdminRole]
 
-        return [permissions() for permissions in permission_classes]
+        return [permission() for permission in permission_classes]
 
 
 class MovieCastViewSet(viewsets.ModelViewSet):
@@ -95,7 +96,7 @@ class MovieCastViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAdminRole]
 
-        return [permissions() for permissions in permission_classes]
+        return [permission() for permission in permission_classes]
 
     def perform_create(self, serializer):
         slug = self.kwargs["movie_slug"]
