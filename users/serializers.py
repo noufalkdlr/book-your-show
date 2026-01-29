@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db import transaction
 from .models import User, CustomerProfile, TheatreOwnerProfile
 
 
@@ -17,10 +18,11 @@ class TheatreOwnerSignUpSerializer(serializers.ModelSerializer):
         fields = ["user", "gst_number", "address"]
 
     def create(self, validated_data):
-        user_data = validated_data.pop("user")
-        user = User.objects.create_user(**user_data, role=User.THEATRE_OWNER)
-        profile = TheatreOwnerProfile.objects.create(user=user, **validated_data)
-        return profile
+        with transaction.atomic():
+            user_data = validated_data.pop("user")
+            user = User.objects.create_user(**user_data, role=User.THEATRE_OWNER)
+            profile = TheatreOwnerProfile.objects.create(user=user, **validated_data)
+            return profile
 
 
 class CustomerSignUpSerializer(serializers.ModelSerializer):
@@ -31,7 +33,8 @@ class CustomerSignUpSerializer(serializers.ModelSerializer):
         fields = ["user", "phone_number", "preferences"]
 
     def create(self, validated_data):
-        user_data = validated_data.pop("user")
-        user = User.objects.create_user(**user_data, role=User.CUSTOMER)
-        profile = CustomerProfile.objects.create(user=user, **validated_data)
-        return profile
+        with transaction.atomic():
+            user_data = validated_data.pop("user")
+            user = User.objects.create_user(**user_data, role=User.CUSTOMER)
+            profile = CustomerProfile.objects.create(user=user, **validated_data)
+            return profile

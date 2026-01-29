@@ -6,12 +6,14 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Genre
         fields = ["id", "name", "slug"]
+        read_only_fields = ["slug"]
 
 
 class DirectorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Director
         fields = ["id", "name", "slug", "photo"]
+        read_only_fields = ["slug"]
 
 
 class ActorSerializer(serializers.ModelSerializer):
@@ -27,6 +29,7 @@ class MovieCastSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MovieCast
         fields = ["id", "slug", "actor", "role_name"]
+        read_only_fields = ["slug"]
 
 
 class MovieCastCreateUpdateSerializer(serializers.ModelSerializer):
@@ -40,6 +43,7 @@ class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Language
         fields = ["id", "name", "slug"]
+        read_only_fields = ["slug"]
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -64,6 +68,7 @@ class MovieListSerializer(serializers.ModelSerializer):
             "trailer_url",
             "release_date",
         ]
+        read_only_fields = ["slug"]
 
 
 class MovieCreateUpdateSerializer(serializers.ModelSerializer):
@@ -83,3 +88,4 @@ class MovieCreateUpdateSerializer(serializers.ModelSerializer):
             "trailer_url",
             "release_date",
         ]
+        read_only_fields = ["slug"]
