@@ -164,6 +164,3 @@ fake_data = {
         "Shaji Pappan",
     ],
 }
-
-for actor,role in zip(fake_data['actors'],fake_data["role_name"]):
-    print(actor,role)

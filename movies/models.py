@@ -81,7 +81,7 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
-    title = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True, db_index=True)
     description = models.TextField(blank=True, default="")
     directors = models.ManyToManyField(Director, related_name="movies")
@@ -93,11 +93,11 @@ class Movie(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     trailer_url = models.URLField(blank=True, null=True)
-    release_date = models.DateField()
+    release_date = models.DateField(blank=True,null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title)
+            base_slug = slugify(self.name)
             slug = base_slug
             count = 1
             while Movie.objects.filter(slug=slug).exists():
@@ -107,7 +107,7 @@ class Movie(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class MovieCast(models.Model):
@@ -121,7 +121,7 @@ class MovieCast(models.Model):
     role_name = models.CharField(max_length=100)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f"{self.movie.title}-{self.role_name}")
+        self.slug = slugify(f"{self.movie.name}-{self.role_name}")
         return super().save(*args, **kwargs)
 
     def __str__(self):
