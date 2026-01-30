@@ -1,3 +1,11 @@
-a = [b for b in range(10)]
+import random
 
-print(a)
+a = ["noufal", "muhammed", "abu"]
+
+c = []
+
+for i in range(10):
+    z = random.choice(a)
+    c.append(z)
+
+print(c)
