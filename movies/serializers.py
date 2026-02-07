@@ -56,7 +56,7 @@ class MovieListSerializer(serializers.ModelSerializer):
         model = models.Movie
         fields = [
             "id",
-            "title",
+            "name",
             "slug",
             "description",
             "directors",
@@ -76,7 +76,7 @@ class MovieCreateUpdateSerializer(serializers.ModelSerializer):
         model = models.Movie
         fields = [
             "id",
-            "title",
+            "name",
             "slug",
             "description",
             "directors",

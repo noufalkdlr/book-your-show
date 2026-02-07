@@ -26,7 +26,12 @@ urlpatterns = [
     path(
         "movies/<slug:movie_slug>/cast/<slug:slug>/",
         MovieCastViewSet.as_view(
-            {"get": "retrieve", "put": "update", "delete": "destroy"}
+            {
+                "get": "retrieve",
+                "put": "update",
+                "patch": "partial_update",
+                "delete": "destroy",
+            }
         ),
         name="movie-cast-detail",
     ),

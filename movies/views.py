@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Genre, Movie, Actor, Language, MovieCast
 from .serializers import (
     ActorSerializer,
@@ -18,6 +20,22 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieListSerializer
     lookup_field = "slug"
+
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+
+    filterset_fields = ["directors__name", "genres__name"]
+    search_fields = [
+        "name",
+        "cast__name",
+        "genres__name",
+        "directors__name",
+        "movie_roles__role_name",
+    ]
+    ordering_fields = ["release_date", "name", "created_at"]
 
     def get_serializer_class(self):
         if self.action in ["create", "update", "partial_update"]:
